@@ -1,0 +1,38 @@
+ <body>
+    <input type="text" id="filterOn" />
+    <div id="filteredList"></div>
+    <script>
+    var data = [];
+    for (var i = 0; i < 100; i++) {
+      data.push({
+        ID: (Math.random() * 10 + '').replace(".","")
+      });
+    }
+    
+    onFilter();
+    
+    d3.select('#filterOn').on('keyup', onFilter);
+    
+    function onFilter(){
+
+      var filterText = d3.select('#filterOn').property('value');
+      
+      filteredData = data;
+      if (filterText !== ""){
+        var filteredData = data.filter(function(d){
+          return (d.ID.indexOf(filterText) === 0);
+        });
+      }
+      
+      d3.select('#filteredList').html(
+        filteredData.map(function(d){
+          return d.ID;
+        }).join("<br/>")
+      );
+    }
+
+    
+  </script>
+  </body>
+
+</html>
